@@ -1,0 +1,69 @@
+{% extends "./base.html" %} 
+{%block content%}
+<div class="row justify-content-md-center">
+        {% if user.is_authenticated %}
+        <div class="col-md-10">
+            <h1 class="text-center">Registros</h1>
+                <table class="text-center table table-dark table-hover table-bordered border-success">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Correo</th>
+                            <th>Telefono</th>
+                            <th>Dirección</th>
+                            <th>Ciudad</th>
+                            <th>Estado</th>
+                            <th>Codigo ZIP</th>
+                            <th>Creado en</th>
+                        </tr>
+                    </thead>
+            {% if records %}
+                    <tbody>
+                        {% for record in records %}
+                        <tr>
+                            <td><a href="{% url 'record'  record.id %}">{{ record.id }}</a></td>
+                            <td>{{ record.first_name }}</td>
+                            <td>{{ record.last_name }}</td>
+                            <td>{{ record.email }}</td>
+                            <td>{{ record.phone }}</td>
+                            <td>{{ record.address }}</td>
+                            <td>{{ record.city }}</td>
+                            <td>{{ record.state }}</td>
+                            <td>{{ record.zipcode }}</td>
+                            <td>{{ record.created_at }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+            {% endif %}
+        </table>
+        {% else %}
+        <div class="col-md-3">
+            <h1 class="text-center">Login</h1>
+            <form class="bg-dark text-white p-3" method="POST" action="{% url 'home' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input
+                        name="username"
+                        type="text"
+                        class="form-control"
+                        id="username"
+                    />
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input
+                        name="password"
+                        type="password"
+                        class="form-control"
+                        id="password"
+                    />
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        {% endif %}
+    </div>
+</div>
+{%endblock%}
