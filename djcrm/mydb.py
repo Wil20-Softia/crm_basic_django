@@ -1,3 +1,5 @@
+#SE EJECUTA SOLO UNA VEZ PARA LA CREACION Y LA CONEXION DE LA BASE DE DATOS
+
 from mysql import connector
 
 dataBase = connector.connect(
